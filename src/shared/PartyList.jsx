@@ -1,34 +1,38 @@
 import React from 'react';
 
 import AddGuest from './AddGuest.jsx';
+import GuestList from './GuestList.jsx';
 
 class PartyList extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            guests: ['Batman', 'Superman', 'Green Lantern']
+            guests: ['Batman', 'Superman', 'Green Lantern', 'AntMan']
         }
 
+        this.addGuest = this.addGuest.bind(this)
+    }
+
+    addGuest(newGuest) {
+        // Add this guest to the list of guests.
+        const newGuestList = this.state.guests;
+
+        newGuestList.push(newGuest);
+
+
+        this.setState({
+            guests: newGuestList
+        })
     }
 
     render() {
 
-        var guestList = [];
-
-        for (var i = 0; i < this.state.guests.length; i++) {
-            guestList.push(<li key={i}>{this.state.guests[i]}</li>);
-        }
-
-
-
         return (
             <div>
                 <h1>Party List!</h1>
-                <ul>
-                    {guestList}
-                </ul>
-                <AddGuest />
+                <GuestList guests={this.state.guests} />
+                <AddGuest addGuest={this.addGuest}/>
             </div>
         )
     }
